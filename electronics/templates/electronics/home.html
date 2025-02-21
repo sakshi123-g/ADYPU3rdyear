@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlipKart Store - Flip Cards</title>
+  <!-- Import Google Fonts for a professional look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    /* Header styling */
+    header {
+      background-color: #2874F0;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    header .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      position: relative;
+    }
+    header .search-bar input {
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 2px;
+    }
+    header .search-bar button {
+      position: absolute;
+      right: 2px;
+      top: 2px;
+      bottom: 2px;
+      background-color: #FB641B;
+      border: none;
+      padding: 0 15px;
+      border-radius: 2px;
+      color: #fff;
+      cursor: pointer;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    /* Container styling */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    /* Grid layout for flip cards */
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    /* Flip Card Styles */
+    .product-card {
+      perspective: 1000px; /* Needed for 3D effect */
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .product-card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #e0e0e0;
+      border-top: 6px solid #2874F0;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      backface-visibility: hidden;
+      background: #fff;
+      overflow: hidden;
+    }
+    /* Front Side of the Card */
+    .card-front {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f0f0f0;
+    }
+    .product-front-content {
+      padding: 15px;
+      text-align: center;
+    }
+    .product-name {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #2874F0;
+    }
+    .product-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FB641B;
+    }
+    /* Back Side of the Card */
+    .card-back {
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+    }
+    .product-back-content {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.4;
+    }
+    /* Footer styling */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #f1f1f1;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">FlipKart Store</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for products...">
+      <button>Search</button>
+    </div>
+    <nav>
+      <a href="#">Login</a>
+      <a href="#">Cart</a>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="product-container">
+      {% for pro in prod %}
+      <div class="product-card">
+        <div class="card-inner">
+          <!-- Front side shows image, product name, and price -->
+          <div class="card-front">
+            <img src="{{ pro.image_url|default:'https://via.placeholder.com/250x200' }}" alt="{{ pro.name }}" class="product-image">
+            <div class="product-front-content">
+              <h2 class="product-name">{{ pro.name }}</h2>
+              <span class="product-price">${{ pro.price }}</span>
+            </div>
+          </div>
+          <!-- Back side shows product description -->
+          <div class="card-back">
+            <div class="product-back-content">
+              <p>{{ pro.desc }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 FlipKart Store. All rights reserved.
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
